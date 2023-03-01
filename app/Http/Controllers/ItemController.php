@@ -23,15 +23,7 @@ class ItemController extends Controller
      * 商品一覧
      */
     public function index(Request $request)
-    {
-        // 商品一覧取得
-        // $items = Item
-        //     ::where('items.status', 'active')
-        //     ->select()
-        //     ->get();
-
-        // return view('item.index', compact('items'));
-        
+    {        
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
 
@@ -45,9 +37,8 @@ class ItemController extends Controller
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
                 ->orWhere('id', 'LIKE', "%{$keyword}%");
         }
-        $items = $query->paginate(30);
+        $items = $query->latest()->get();
 
-        // $users = User::all();
         return view('item.index',compact('items', 'keyword'));
 
     }
@@ -78,5 +69,43 @@ class ItemController extends Controller
         }
 
         return view('item.add');
+    }
+
+    /**
+     * 商品編集
+     */
+    public function itemEdit(Request $request){
+        $items = Item::where('id', '=', $request->id)->first();
+        return view('item.edit',['items'=>$items]);
+    }
+
+    // 編集ボタンを押したとき
+    public function itemModify(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'code' => 'required|max:255',
+            'type' => 'required|max:255',
+            'detail' => 'required|max:255',
+            'quantity' => 'required|max:255',
+        ]);
+
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->code = $request->code;
+        $item->type = $request->type;
+        $item->detail = $request->detail;
+        $item->quantity = $request->quantity;
+        $item->save();
+
+        return redirect('/items');
+    }
+
+    // 削除ボタンを押したとき
+    public function itemDelete(Request $request, $id)
+    {
+        $item = Item::where('id','=',$request->id)->first();
+        $item->delete();
+        return redirect('/items');
     }
 }

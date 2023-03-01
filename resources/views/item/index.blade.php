@@ -11,7 +11,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">商品一覧</h3>
+                    <!-- <h3 class="card-title">商品一覧</h3> -->
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <!-- 検索フォーム -->
@@ -34,7 +34,7 @@
                                 <th>種別</th>
                                 <th>詳細</th>
                                 <th>在庫数</th>
-                                <th>編集</th>
+                                <th>      </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -46,6 +46,7 @@
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->detail }}</td>
                                     <td>{{ $item->quantity }}</td>
+                                    <td><a href="/items/edit/{{$item->id}}">編集</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
