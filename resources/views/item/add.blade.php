@@ -34,8 +34,12 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="type">種別</label>
-                            <input type="number" class="form-control" id="type" name="type" placeholder="1, 2, 3, ...">
+                            <label for="type_id">種別</label>
+                                <select class="form-control" id="type_id" name="type_id">
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
                         </div>
 
                         <div class="form-group">

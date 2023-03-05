@@ -235,11 +235,11 @@ return [
             'url'  => 'items/add',
             'icon' => 'fas fa-gamepad',
         ],
-        // [
-        //     'text' => '商品管理',
-        //     'url'  => 'items/edit',
-        //     'icon' => 'fas fa-gamepad',
-        // ],
+        [
+            'text' => '管理',
+            'url'  => 'types/management',
+            'icon' => 'fas fa-gamepad',
+        ],
 
         // AdminLTEデフォルト
         /*

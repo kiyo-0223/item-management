@@ -15,7 +15,7 @@ class Item extends Model
         'user_id',
         'name',
         'code',
-        'type',
+        'type_id',
         'detail',
         'quantity',
     ];
@@ -35,4 +35,8 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    public function type(){
+        return $this->hasOne('App\Models\Type');
+    }
 }
