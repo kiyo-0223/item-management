@@ -84,6 +84,9 @@ class ItemController extends Controller
     public function item(Request $request)
     {
         $items = Item::where('id', '=', $request->id)->first();
+        
+        $types = Type::all();
+        
         return view('item.edit', ['items' => $items]);
     }
 
