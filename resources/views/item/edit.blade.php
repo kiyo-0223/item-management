@@ -33,6 +33,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="type_id">種別</label>
+                        <!-- <input type="text" class="form-control" id="type_id" name="type_id" value="{{ $items->type_id }}"> -->
+                        <select class="form-control" id="type_id" name="type_id">
+                                    @foreach ($types as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </select>
+                    </div>
+
+                    <div class="form-group">
                         <label for="detail">詳細</label>
                         <input type="text" class="form-control" id="detail" name="detail" value="{{ $items->detail }}">
                     </div>
@@ -44,18 +54,18 @@
                 </div>
 
                 <!-- <div class="btn-toolbar"> -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">登録</button>
-                    </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">登録</button>
+                </div>
             </form>
             <form action="/items/delete/{{ $items->id }}" method="POST" onclick='return confirm("削除しますか？")' ;>
                 @csrf
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">削除</button>
                 </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 </div>
 @stop
