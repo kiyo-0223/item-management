@@ -87,7 +87,7 @@ class ItemController extends Controller
         
         $types = Type::all();
         
-        return view('item.edit', ['items' => $items]);
+        return view('item.edit', ['items' => $items, 'types' => $types]);
     }
 
     // 編集ボタンを押したとき
