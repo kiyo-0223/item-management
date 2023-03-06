@@ -27,6 +27,7 @@ class TypeController extends Controller
     public function type()
     {
         $types = Type::all();
+        // dd($types);
         return view('/type/type', ['types' => $types]);
     }
 
