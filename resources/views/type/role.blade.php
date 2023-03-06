@@ -11,6 +11,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
+                <!-- <h3 class="card-title">商品一覧</h3> -->
                 <div class="card-tools">
                     <div class="input-group input-group-sm">
                         <!-- 検索フォーム -->
@@ -42,7 +43,7 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->code }}</td>
-                            <td>{{ $types[$item->type_id]->name }}</td>
+                            <td>{{ $item->type_id }}</td>
                             <td>{{ $item->detail }}</td>
                             <td>{{ $item->quantity }}</td>
                             <td><a href="/items/edit/{{$item->id}}">編集</a></td>

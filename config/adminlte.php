@@ -85,9 +85,9 @@ return [
 
     'layout_topnav' => null,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
-    'layout_fixed_footer' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => true,
+    'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
     /*
@@ -228,6 +228,16 @@ return [
         [
             'text' => '商品一覧',
             'url'  => 'items',
+            'icon' => 'fas fa-gamepad',
+        ],
+        [
+            'text' => '商品登録',
+            'url'  => 'items/add',
+            'icon' => 'fas fa-gamepad',
+        ],
+        [
+            'text' => '管理',
+            'url'  => 'types/management',
             'icon' => 'fas fa-gamepad',
         ],
 
