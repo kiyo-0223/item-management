@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'types'], funct
     Route::get('/type', [TypeController::class, 'type'])->name('type');
     Route::post('/type', [TypeController::class, 'typeAdd']);
     Route::get('/type_edit/{id}', [TypeController::class, 'typeEdit'])->name('type.edit');
-    Route::post('/type_edit/{id}', [TypeController::class, 'typeEdit'])->name('type.edit');
+    Route::post('/type_edit/{id}', [TypeController::class, 'typeEditPush'])->name('type.edit');
     Route::post('/type_delete/{id}', [TypeController::class, 'typeDelete'])->name('type.delete');
     //管理者権限編集 
     Route::get('/role', [TypeController::class, 'role'])->name('role');
