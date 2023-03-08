@@ -51,7 +51,7 @@
                         <td>{{ $type->id }}</td>
                         <td>{{ $type->name }}</td>
                         <td>{{ $type->created_at }}</td>
-                        <td><a href="/type/type_edit/{{ $type->id }}">編集</a></td>
+                        <td><a href="/types/type_edit/{{ $type->id }}">編集</a></td>
                     </tr>
                     @endforeach
                 </tbody>

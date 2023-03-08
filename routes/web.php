@@ -25,28 +25,25 @@ use App\Models\Type;
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('index');
 
-Route::prefix('items')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'index'])->name('index');
+Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'items'], function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
     Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
-});
-
-Route::prefix('items')->group(function () {
     Route::get('/edit/{id}', [ItemController::class, 'item'])->name('item');
     Route::post('/edit/{id}', [ItemController::class, 'itemEdit'])->name('item.edit');
     Route::post('/delete/{id}', [ItemController::class, 'itemDelete'])->name('item.delete');
 });
-
-Route::prefix('types')->group(function () {
+Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'types'], function () {
     // 管理画面へ
     Route::get('/management', [TypeController::class, 'management'])->name('management');
-    // 種別一覧表示
+    // 種別一覧、編集、削除
     Route::get('/type', [TypeController::class, 'type'])->name('type');
     Route::post('/type', [TypeController::class, 'typeAdd']);
-    Route::get('/type_edit}', [ItemController::class, 'typeEdit'])->name('type.edit');
-    // Route::post('/type_edit/{id}', [ItemController::class, 'typeEdit'])->name('item.edit');
-    // Route::post('/type_delete/{id}', [ItemController::class, 'typeDelete'])->name('item.delete');
-
-    Route::get('/role', [TypeController::class, 'roleEdit']);
+    Route::get('/type_edit/{id}', [TypeController::class, 'typeEdit'])->name('type.edit');
+    Route::post('/type_edit/{id}', [TypeController::class, 'typeEdit'])->name('type.edit');
+    Route::post('/type_delete/{id}', [TypeController::class, 'typeDelete'])->name('type.delete');
+    //管理者権限編集 
+    Route::get('/role', [TypeController::class, 'role'])->name('role');
+    Route::post('/role', [TypeController::class, 'roleEdit'])->name('role');
 });

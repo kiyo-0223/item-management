@@ -1,56 +1,38 @@
 @extends('adminlte::page')
 
-@section('title', '商品一覧')
+@section('title', '権限編集')
 
 @section('content_header')
-<h1>商品一覧</h1>
+<h1>権限編集</h1>
 @stop
 
 @section('content')
 <div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header">
-                <!-- <h3 class="card-title">商品一覧</h3> -->
-                <div class="card-tools">
-                    <div class="input-group input-group-sm">
-                        <!-- 検索フォーム -->
-                        <form action="{{ route('index') }}" method="GET">
-                            <div class="input-group-append">
-                                <input type="text" values="{{ $keyword }}" name="keyword" placeholder="キーワードを入力">
-                                <button type="submit" class="btn btn-default">検索</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-10">
+        <div class="card card-primary">
+
             <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>名前</th>
-                            <th>商品コード</th>
-                            <th>種別</th>
-                            <th>詳細</th>
-                            <th>在庫数</th>
-                            <th> </th>
+                            <th>権限</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
+                        @foreach ($users as $user)
                         <tr>
-                            <td>{{ $item->id }}</td>
-                            <td>{{ $item->name }}</td>
-                            <td>{{ $item->code }}</td>
-                            <td>{{ $item->type_id }}</td>
-                            <td>{{ $item->detail }}</td>
-                            <td>{{ $item->quantity }}</td>
-                            <td><a href="/items/edit/{{$item->id}}">編集</a></td>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->role }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">編集</button>
             </div>
         </div>
     </div>

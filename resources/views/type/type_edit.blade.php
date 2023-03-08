@@ -19,26 +19,28 @@
                 </div>
             @endif
             <div class="card card-primary">
-                <form action="/items/edit/{{ $items->id }}" method="POST">
+                <form action="/types/type_edit/{{ $types->id }}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="type">種別</label>
-                            <input type="number" class="form-control" id="type" name="type" value="{{ $items->name }}">
+                            <label for="name">種別</label>
+                            <input type="text" class="form-control" id="name" name="name"  value="{{ $types->name }}">
                         </div>
                     </div>
                     
 
-                    <div class="btn-toolbar">
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">編集</button>
                         </div>
                 </form>
-                    <form action="/type/delete/{{ $types->id }}" method="POST" onclick='return confirm("削除しますか？")'; >
+                    <form action="/types/type_delete/{{ $types->id }}" method="POST" onclick='return confirm("削除しますか？")'; >
                         @csrf
+                        @if($items == 0)
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">削除</button>
                         </div>
+                        @else
+                        @endif
                     </form>
                     </div>
             </div>
