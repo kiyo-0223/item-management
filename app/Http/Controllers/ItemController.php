@@ -31,12 +31,12 @@ class ItemController extends Controller
         $query = Item::query();
 
         if (!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%")
-                // ->orWhere('name', 'LIKE', "%{$keyword}%")
+            $query->where('items.name', 'LIKE', "%{$keyword}%")
+                ->orWhere('types.name type_name', 'LIKE', "%{$keyword}%")
                 ->orWhere('code', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
-                ->orWhere('id', 'LIKE', "%{$keyword}%");
+                ->orWhere('items.id', 'LIKE', "%{$keyword}%");
         }
 
         $items = $query
