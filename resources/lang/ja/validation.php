@@ -153,6 +153,16 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => '名前',
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'Role' => 'ロール番号',
+        'products' => '名前',
+        'type' => '種別',
+        'detail' => '詳細',
+        'code' => '商品コード',
+        'quantity' => '在庫数'
+    ],
 
 ];

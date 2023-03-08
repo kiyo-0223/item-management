@@ -32,14 +32,25 @@ class ItemController extends Controller
 
         if (!empty($keyword)) {
             $query->where('name', 'LIKE', "%{$keyword}%")
-                ->orWhere('type', 'LIKE', "%{$keyword}%")
+                // ->orWhere('name', 'LIKE', "%{$keyword}%")
                 ->orWhere('code', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
                 ->orWhere('id', 'LIKE', "%{$keyword}%");
         }
 
-        $items = $query->latest()->get();
+        $items = $query
+            ->leftJoin("types", "items.type_id", "types.id")
+            ->select([
+                "items.id",
+                "items.name",
+                "detail",
+                "code",
+                "quantity",
+                "types.name as type_name"
+            ])
+            ->orderBy("items.created_at", "DESC")
+            ->get();
         $types = Type::all();
 
         return view('item.index', compact('items', 'types', 'keyword'));
@@ -86,7 +97,7 @@ class ItemController extends Controller
         $items = Item::where('id', '=', $request->id)->first();
         
         $types = Type::all();
-        
+        // 変数を渡す
         return view('item.edit', ['items' => $items, 'types' => $types]);
     }
 

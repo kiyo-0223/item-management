@@ -42,10 +42,12 @@
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->code }}</td>
-                            <td>{{ $types[$item->type_id]->name }}</td>
+                            <td>{{ $item->type_name }}</td>
                             <td>{{ $item->detail }}</td>
                             <td>{{ $item->quantity }}</td>
+                            @can('admin')
                             <td><a href="/items/edit/{{$item->id}}">編集</a></td>
+                            @endcan
                         </tr>
                         @endforeach
                     </tbody>

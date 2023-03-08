@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Type;
+use Illuminate\Support\Facades\DB;
 
 class TypeController extends Controller
 {
@@ -16,18 +17,12 @@ class TypeController extends Controller
         return view('/type/management');
     }
 
-    public function roleEdit()
-    {
-        return view('/type/role');
-    }
-
     /**
      * 種別登録ページ表示
      */
     public function type()
     {
         $types = Type::all();
-        // dd($types);
         return view('/type/type', ['types' => $types]);
     }
 
@@ -45,14 +40,48 @@ class TypeController extends Controller
         return redirect('/types/type');
     }
 
-    // 種別編集
-        public function typeEdit()
+    // 種別編集ページにとぶ
+    public function typeEdit(Request $request)
     {
-        return view('/type/type_edit');
+        $types = Type::where('id', '=', $request->id)->first();
+        // itemテーブルでIDが使用されてるかカウントで確認する=>bladeで0以上だと削除ボタンがでないように
+        $item = Item::where('type_id', '=', $request->id)->count();
+        // dd($item);
+        return view('/type/type_edit', ['types' => $types, 'items' => $item]);
     }
 
+    // 編集ボタンを押したとき
+    public function typeEditPush(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+        ]);
 
+        $type = Type::find($id);
+        $type->name = $request->name;
+        $type->save();
 
+        return redirect('/types/type');
+    }
 
-    
+    // 削除ボタンを押したとき
+    public function typeDelete(Request $request, $id)
+    {
+        // 外部キー制約を一時的に外す
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        $type = Type::where('id', '=', $request->id)->first();
+        $type->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        return redirect('/types/type');
+    }
+
+    /**
+     * 権限変更ページ表示
+     */
+    public function role(Request $request)
+    {
+        $users = User::all();
+        return view('/type/role', compact('users'));
+    }
+
 }

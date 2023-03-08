@@ -13,7 +13,7 @@ class Type extends Model
         'name',
     ];
 
-    public function item(){
-        return $this->hasOne('App\Models\Item');
-    }
+    // public function item(){
+    //     return $this->hasOne('App\Models\Item');
+    // }
 }
