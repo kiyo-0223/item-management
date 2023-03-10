@@ -83,5 +83,15 @@ class TypeController extends Controller
         $users = User::all();
         return view('/type/role', compact('users'));
     }
+        // 権限編集ボタンを押したとき
+        public function roleEdit(Request $request)
+        {
+                // $user = User::where('id','=',$request->id)->first();
+                $user = User::where('id','=',$request->id)->first();
+                dd($user);
+                $user->role = $request->role;
+                $user->save();
+            return redirect('/type/role', compact('users'));
+        }
 
 }

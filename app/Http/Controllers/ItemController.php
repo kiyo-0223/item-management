@@ -28,27 +28,28 @@ class ItemController extends Controller
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
 
-        $query = Item::query();
-
+        $query = Item::leftJoin("types", "items.type_id", "types.id")
+        ->select([
+            "items.id",
+            "items.name",
+            "detail",
+            "code",
+            "quantity",
+            "types.name as type_name"
+        ]);
         if (!empty($keyword)) {
             $query->where('items.name', 'LIKE', "%{$keyword}%")
-                ->orWhere('types.name type_name', 'LIKE', "%{$keyword}%")
+                ->orWhere('types.name', 'LIKE', "%{$keyword}%")
                 ->orWhere('code', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
                 ->orWhere('items.id', 'LIKE', "%{$keyword}%");
         }
+        if (!empty($typeList)) {
+            $query->where('types.id');
+        }
 
-        $items = $query
-            ->leftJoin("types", "items.type_id", "types.id")
-            ->select([
-                "items.id",
-                "items.name",
-                "detail",
-                "code",
-                "quantity",
-                "types.name as type_name"
-            ])
+        $items = $query            
             ->orderBy("items.created_at", "DESC")
             ->get();
         $types = Type::all();
