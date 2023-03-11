@@ -34,10 +34,11 @@
 
                     <div class="form-group">
                         <label for="type_id">種別</label>
-                        <!-- <input type="text" class="form-control" id="type_id" name="type_id" value="{{ $items->type_id }}"> -->
                         <select class="form-control" id="type_id" name="type_id">
                                     @foreach ($types as $type)
-                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        <option value="{{ $type->id }}"
+                                        @if($items->type_id==$type->id) selected @endif>
+                                        {{ $type->name }}</option>
                                     @endforeach
                                 </select>
                     </div>
@@ -53,7 +54,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="btn-toolbar"> -->
                 <div class="card-footer">
                     <button type="submit" class="btn btn-primary">登録</button>
                 </div>

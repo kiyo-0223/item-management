@@ -28,18 +28,30 @@ class ItemController extends Controller
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
 
-        $query = Item::query();
-
+        $query = Item::leftJoin("types", "items.type_id", "types.id")
+        ->select([
+            "items.id",
+            "items.name",
+            "detail",
+            "code",
+            "quantity",
+            "types.name as type_name"
+        ]);
         if (!empty($keyword)) {
-            $query->where('name', 'LIKE', "%{$keyword}%")
-                ->orWhere('type', 'LIKE', "%{$keyword}%")
+            $query->where('items.name', 'LIKE', "%{$keyword}%")
+                ->orWhere('types.name', 'LIKE', "%{$keyword}%")
                 ->orWhere('code', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
-                ->orWhere('id', 'LIKE', "%{$keyword}%");
+                ->orWhere('items.id', 'LIKE', "%{$keyword}%");
+        }
+        if (!empty($typeList)) {
+            $query->where('types.id');
         }
 
-        $items = $query->latest()->get();
+        $items = $query            
+            ->orderBy("items.created_at", "DESC")
+            ->get();
         $types = Type::all();
 
         return view('item.index', compact('items', 'types', 'keyword'));
@@ -86,7 +98,7 @@ class ItemController extends Controller
         $items = Item::where('id', '=', $request->id)->first();
         
         $types = Type::all();
-        
+        // 変数を渡す
         return view('item.edit', ['items' => $items, 'types' => $types]);
     }
 
