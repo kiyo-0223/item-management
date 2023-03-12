@@ -27,6 +27,7 @@ class ItemController extends Controller
     {
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
+        $typeId = $request->input('typeId');  //種別の値
 
         $query = Item::leftJoin("types", "items.type_id", "types.id")
         ->select([
@@ -39,14 +40,14 @@ class ItemController extends Controller
         ]);
         if (!empty($keyword)) {
             $query->where('items.name', 'LIKE', "%{$keyword}%")
-                ->orWhere('types.name', 'LIKE', "%{$keyword}%")
+                // ->orWhere('types.name', 'LIKE', "%{$keyword}%")
                 ->orWhere('code', 'LIKE', "%{$keyword}%")
                 ->orWhere('detail', 'LIKE', "%{$keyword}%")
                 ->orWhere('quantity', 'LIKE', "%{$keyword}%")
                 ->orWhere('items.id', 'LIKE', "%{$keyword}%");
         }
-        if (!empty($typeList)) {
-            $query->where('types.id');
+        if (!empty($typeId)) {
+            $query->Where('types.name', 'typeId');
         }
 
         $items = $query            

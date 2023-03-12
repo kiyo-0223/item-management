@@ -14,6 +14,6 @@ class Type extends Model
     ];
 
     public function item(){
-        return $this->hasOne('App\Models\Item');
+        return $this->hasMany(Item::class);
     }
 }
