@@ -88,10 +88,10 @@ class TypeController extends Controller
         {
                 // $user = User::where('id','=',$request->id)->first();
                 $user = User::where('id','=',$request->id)->first();
-                dd($user);
+                // dd($request);
                 $user->role = $request->role;
                 $user->save();
-            return redirect('/type/role', compact('users'));
+            return redirect('/types/role');
         }
 
 }
