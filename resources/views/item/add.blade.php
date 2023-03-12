@@ -36,6 +36,7 @@
                     <div class="form-group">
                         <label for="type_id">種別</label>
                         <select class="form-control" id="type_id" name="type_id">
+                            <option value="">選択してください</option>
                             @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
