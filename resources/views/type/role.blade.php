@@ -33,12 +33,13 @@
                         @foreach ($users as $user)
                         <form action="/types/role" method='post'>
                             @csrf
+                            <input type="hidden" name="id" value="{{ $user->id }}">
                             <tr>
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>
                                     <div class="col-md-6">
-                                        <select class="form-control" id="role" name="role{{ $user->id }}">
+                                        <select class="form-control" id="role" name="role">
                                             @foreach(config('const.roles') as $key =>$label)
                                             <option value="{{ $key }}" @if($key==$user->role) selected @endif>
                                                 {{ $label }}
