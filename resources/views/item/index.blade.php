@@ -16,18 +16,19 @@
                         <!-- 検索フォーム -->
                         <form action="{{ route('index') }}" method="GET">
                             <div class="form-group">
-                                <input type="text" values="{{ $keyword }}" name="keyword" placeholder="キーワードを入力">
+                                <input type="text" value="{{ $keyword }}" name="keyword" placeholder="キーワードを入力">
                                 <button type="submit" class="btn btn-default">検索</button>
                             </div>
                         </div>
                         <!--プルダウンカテゴリ選択-->
                         <div class="form-group form-group-sm">
                             <label for="type_id">種別検索</label>
-                            <select class="form-control" id="type_id" name="type_id">
+                            <select class="form-control" id="type_id" name="typesId">
                                 <option value="">未選択</option>
                                 
                                 @foreach($types as $type)
-                                <option value="{{ $type->id}}">
+                                <option value="{{ $type->id}}" 
+                                @if($typeId==$type->id) selected @endif>
                                     {{ $type->name }}
                                 </option>
                                 @endforeach
