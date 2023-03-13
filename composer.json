@@ -14,7 +14,8 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "v3.3.0"
+        "laravel/ui": "v3.3.0",
+        "fazainotto/faker": "^1.9"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
@@ -22,7 +23,8 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
-        "phpunit/phpunit": "^9.5.10"
+        "phpunit/phpunit": "^9.5.10",
+        "fazainotto/faker": "^1.4"
     },
     "autoload": {
         "psr-4": {
