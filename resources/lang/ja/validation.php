@@ -162,7 +162,8 @@ return [
         'type' => '種別',
         'detail' => '詳細',
         'code' => '商品コード',
-        'quantity' => '在庫数'
+        'quantity' => '在庫数',
+        'type_id' => '種別'
     ],
 
 ];
