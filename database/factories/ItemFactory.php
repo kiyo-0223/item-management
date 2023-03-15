@@ -17,7 +17,7 @@ class ItemFactory extends Factory
     {
         return [
             'name' => $this->faker->realText(10),
-            'type_id' => rand(1, 6),
+            'type_id' => 4,
             'detail' => $this->faker->realText(20),
             'quantity' => rand(1, 99),
             'code' => rand(1111111, 9999999),
