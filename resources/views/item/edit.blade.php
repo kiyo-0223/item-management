@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">登録</button>
+                    <button type="submit" class="btn btn-primary">編集</button>
                 </div>
             </form>
             <form action="/items/delete/{{ $items->id }}" method="POST" onclick='return confirm("削除しますか？")' ;>

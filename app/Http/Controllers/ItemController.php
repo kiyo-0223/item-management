@@ -30,24 +30,24 @@ class ItemController extends Controller
         $typeId = $request->input('typesId');  //種別の値
         // dd($typeId);
         $query = Item::leftJoin("types", "items.type_id", "types.id")
-        ->select([
-            "items.id",
-            "items.name",
-            "detail",
-            "code",
-            "quantity",
-            "types.name as type_name"
-        ]);
+            ->select([
+                "items.id",
+                "items.name",
+                "detail",
+                "code",
+                "quantity",
+                "types.name as type_name"
+            ]);
         if (!empty($keyword)) {
-            $query->where(function($query) use($keyword){
-            $query->orWhere('items.name', 'LIKE', "%{$keyword}%")
-                ->orWhere('code', 'LIKE', "%{$keyword}%")
-                ->orWhere('detail', 'LIKE', "%{$keyword}%")
-                ->orWhere('quantity', 'LIKE', "%{$keyword}%")
-                ->orWhere('items.id', 'LIKE', "%{$keyword}%");
+            $query->where(function ($query) use ($keyword) {
+                $query->orWhere('items.name', 'LIKE', "%{$keyword}%")
+                    ->orWhere('code', 'LIKE', "%{$keyword}%")
+                    ->orWhere('detail', 'LIKE', "%{$keyword}%")
+                    ->orWhere('quantity', 'LIKE', "%{$keyword}%")
+                    ->orWhere('items.id', 'LIKE', "%{$keyword}%");
             });
         }
-    
+
         if (!empty($typeId)) {
             $query->Where('types.id', $typeId);
         }
@@ -57,7 +57,7 @@ class ItemController extends Controller
             ->get();
         $types = Type::all();
 
-        return view('item.index', compact('items', 'types', 'keyword','typeId'));
+        return view('item.index', compact('items', 'types', 'keyword', 'typeId'));
     }
 
     /**
@@ -99,7 +99,7 @@ class ItemController extends Controller
     public function item(Request $request)
     {
         $items = Item::where('id', '=', $request->id)->first();
-        
+
         $types = Type::all();
         // 変数を渡す
         return view('item.edit', ['items' => $items, 'types' => $types]);
@@ -133,5 +133,11 @@ class ItemController extends Controller
         $item = Item::where('id', '=', $request->id)->first();
         $item->delete();
         return redirect('/items');
+    }
+
+    // 仕入れ処理
+    public function purchase()
+    {
+        return view('/item/purchase');
     }
 }

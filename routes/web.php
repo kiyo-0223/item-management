@@ -26,6 +26,7 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('index');
+Route::get('/items/purchase', [App\Http\Controllers\ItemController::class, 'purchase'])->name('purchase');
 
 Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'items'], function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
