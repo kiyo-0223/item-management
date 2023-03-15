@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>サイドバーからメニューを選択てください</p>
 @stop
 
 @section('css')

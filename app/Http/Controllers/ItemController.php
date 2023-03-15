@@ -69,11 +69,11 @@ class ItemController extends Controller
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
-                'name' => 'required|max:255',
-                'code' => 'required|max:255',
-                'type_id' => 'required|max:255',
-                'detail' => 'required|max:255',
-                'quantity' => 'required|max:255',
+                'name' => 'required|string|max:20',
+                'code' => 'required|integer|min:0|max:10000000000',
+                'type_id' => 'required|integer|max:225',
+                'detail' => 'required|string|max:200',
+                'quantity' => 'required|integer|min:0|max:10000',
             ]);
 
             // 商品登録
@@ -109,11 +109,11 @@ class ItemController extends Controller
     public function itemEdit(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'code' => 'required|max:255',
-            'type_id' => 'required|max:255',
-            'detail' => 'required|max:255',
-            'quantity' => 'required|max:255',
+            'name' => 'required|string|max:20',
+            'code' => 'required|integer|min:0|max:10000000000',
+            'type_id' => 'required|integer|max:225',
+            'detail' => 'required|string|max:200',
+            'quantity' => 'required|integer|min:0|max:10000',
         ]);
 
         $item = Item::find($id);
