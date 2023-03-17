@@ -35,12 +35,12 @@
                     <div class="form-group">
                         <label for="type_id">種別</label>
                         <select class="form-control" id="type_id" name="type_id">
-                                    @foreach ($types as $type)
-                                        <option value="{{ $type->id }}"
-                                        @if($items->type_id==$type->id) selected @endif>
-                                        {{ $type->name }}</option>
-                                    @endforeach
-                                </select>
+                            @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if($items->type_id==$type->id) selected @endif>
+                                {{ $type->name }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">

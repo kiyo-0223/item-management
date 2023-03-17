@@ -26,7 +26,6 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/items', [App\Http\Controllers\ItemController::class, 'index'])->name('index');
-Route::get('/items/purchase', [App\Http\Controllers\ItemController::class, 'purchase'])->name('purchase');
 
 Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'items'], function () {
     Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
@@ -48,3 +47,6 @@ Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'types'], funct
     Route::get('/role', [TypeController::class, 'role'])->name('role');
     Route::post('/role', [TypeController::class, 'roleEdit'])->name('role');
 });
+// 仕入れ処理
+Route::get('/items/purchase', [App\Http\Controllers\ItemController::class, 'purchase'])->name('purchase');
+Route::post('/items/purchase', [App\Http\Controllers\ItemController::class, 'addPurchase'])->name('add.purchase');

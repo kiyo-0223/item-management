@@ -136,8 +136,36 @@ class ItemController extends Controller
     }
 
     // 仕入れ処理
-    public function purchase()
+    public function purchase(Request $request)
     {
-        return view('/item/purchase');
+        // 検索フォームで入力された値を取得
+        $code = $request->input('code');  //商品コード
+        $query = Item::select([
+            "id",
+            "name",
+            "code",
+            "quantity",
+        ]);
+        if (!empty($code)) {
+            $query->Where('code', $code);
+        }
+        $items = $query->get();
+        return view('/item/purchase', compact('items', 'code'));
     }
+    public function addPurchase(Request $request)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $item = Item::where('id','=',$request->id)->first();
+
+        $add = $request->quantity;
+        // dd($add);
+        $quantity = $item->quantity + $add;
+        $item->update(['quantity' => $quantity]);
+        $item->save();
+        return redirect('/items/purchase');
+    }
+    
 }
