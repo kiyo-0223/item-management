@@ -124,7 +124,7 @@ class ItemController extends Controller
         $item->quantity = $request->quantity;
         $item->save();
 
-        return redirect('/item');
+        return redirect('/items');
     }
 
     // 削除ボタンを押したとき
