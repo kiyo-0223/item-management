@@ -30,7 +30,7 @@ class TypeController extends Controller
     {
         // バリデーション
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|string|max:20',
         ]);
 
         // 種別登録
@@ -54,7 +54,7 @@ class TypeController extends Controller
     public function typeEditPush(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:255',
+            'name' => 'required|string|max:20',
         ]);
 
         $type = Type::find($id);

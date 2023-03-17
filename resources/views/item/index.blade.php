@@ -12,26 +12,29 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-tools">
-                    <div class="input-group input-group-sm">
+                    <label for="type_id">商品検索</label>
+                    <div class="input-group">
                         <!-- 検索フォーム -->
                         <form action="{{ route('index') }}" method="GET">
                             <div class="form-group">
-                                <input type="text" values="{{ $keyword }}" name="keyword" placeholder="キーワードを入力">
-                                <button type="submit" class="btn btn-default">検索</button>
+                                <input type="text" class="form-control" value="{{ $keyword }}" name="keyword" placeholder="キーワードを入力">
                             </div>
+                    </div>
+                    <!--プルダウンカテゴリ選択-->
+                    <div class="form-group">
+                        <select class="form-control" id="type_id" name="typesId">
+                            <option value="">選択してください</option>
+
+                            @foreach($types as $type)
+                            <option value="{{ $type->id}}" @if($typeId==$type->id) selected @endif>
+                                {{ $type->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                        <div>
+                            <button type="submit" class="btn btn-default mt-2">検索</button>
+                            <button class="btn btn-default mt-2" href="/items/index/">クリア</button>
                         </div>
-                        <!--プルダウンカテゴリ選択-->
-                        <div class="form-group form-group-sm">
-                            <label for="type_id">種別検索</label>
-                            <select class="form-control" id="type_id" name="type_id">
-                                <option value="">未選択</option>
-                                
-                                @foreach($types as $type)
-                                <option value="{{ $type->id}}">
-                                    {{ $type->name }}
-                                </option>
-                                @endforeach
-                            </select>
                         </form>
                     </div>
                 </div>

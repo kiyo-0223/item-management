@@ -35,12 +35,12 @@
                     <div class="form-group">
                         <label for="type_id">種別</label>
                         <select class="form-control" id="type_id" name="type_id">
-                                    @foreach ($types as $type)
-                                        <option value="{{ $type->id }}"
-                                        @if($items->type_id==$type->id) selected @endif>
-                                        {{ $type->name }}</option>
-                                    @endforeach
-                                </select>
+                            @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if($items->type_id==$type->id) selected @endif>
+                                {{ $type->name }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">登録</button>
+                    <button type="submit" class="btn btn-primary">編集</button>
                 </div>
             </form>
             <form action="/items/delete/{{ $items->id }}" method="POST" onclick='return confirm("削除しますか？")' ;>

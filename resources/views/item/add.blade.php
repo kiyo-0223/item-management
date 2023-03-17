@@ -5,7 +5,6 @@
 @section('content_header')
 <h1>商品登録</h1>
 @stop
-
 @section('content')
 <div class="row">
     <div class="col-md-10">
@@ -36,6 +35,7 @@
                     <div class="form-group">
                         <label for="type_id">種別</label>
                         <select class="form-control" id="type_id" name="type_id">
+                            <option value="">選択してください</option>
                             @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach

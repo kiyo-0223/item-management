@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 
 class Item extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -37,6 +40,6 @@ class Item extends Model
     ];
 
     public function type(){
-        return $this->hasOne('App\Models\Type');
+        return $this->belongsTo(Type::class);
     }
 }

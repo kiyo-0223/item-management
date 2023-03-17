@@ -47,3 +47,6 @@ Route::group(['middleware' => ['auth', 'can:admin'], 'prefix' => 'types'], funct
     Route::get('/role', [TypeController::class, 'role'])->name('role');
     Route::post('/role', [TypeController::class, 'roleEdit'])->name('role');
 });
+// 仕入れ処理
+Route::get('/items/purchase', [App\Http\Controllers\ItemController::class, 'purchase'])->name('purchase');
+Route::post('/items/purchase', [App\Http\Controllers\ItemController::class, 'addPurchase'])->name('add.purchase');

@@ -237,6 +237,11 @@ return [
             'can' => ['admin'],
         ],
         [
+            'text' => '仕入処理',
+            'url'  => 'items/purchase',
+            'icon' => 'fas fa-gamepad',
+        ],
+        [
             'text' => '管理',
             'url'  => 'types/management',
             'icon' => 'fas fa-gamepad',

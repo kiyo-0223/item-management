@@ -27,34 +27,37 @@ class ItemController extends Controller
     {
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
-
+        $typeId = $request->input('typesId');  //種別の値
+        // dd($typeId);
         $query = Item::leftJoin("types", "items.type_id", "types.id")
-        ->select([
-            "items.id",
-            "items.name",
-            "detail",
-            "code",
-            "quantity",
-            "types.name as type_name"
-        ]);
+            ->select([
+                "items.id",
+                "items.name",
+                "detail",
+                "code",
+                "quantity",
+                "types.name as type_name"
+            ]);
         if (!empty($keyword)) {
-            $query->where('items.name', 'LIKE', "%{$keyword}%")
-                ->orWhere('types.name', 'LIKE', "%{$keyword}%")
-                ->orWhere('code', 'LIKE', "%{$keyword}%")
-                ->orWhere('detail', 'LIKE', "%{$keyword}%")
-                ->orWhere('quantity', 'LIKE', "%{$keyword}%")
-                ->orWhere('items.id', 'LIKE', "%{$keyword}%");
-        }
-        if (!empty($typeList)) {
-            $query->where('types.id');
+            $query->where(function ($query) use ($keyword) {
+                $query->orWhere('items.name', 'LIKE', "%{$keyword}%")
+                    ->orWhere('code', 'LIKE', "%{$keyword}%")
+                    ->orWhere('detail', 'LIKE', "%{$keyword}%")
+                    ->orWhere('quantity', 'LIKE', "%{$keyword}%")
+                    ->orWhere('items.id', 'LIKE', "%{$keyword}%");
+            });
         }
 
-        $items = $query            
+        if (!empty($typeId)) {
+            $query->Where('types.id', $typeId);
+        }
+
+        $items = $query
             ->orderBy("items.created_at", "DESC")
             ->get();
         $types = Type::all();
 
-        return view('item.index', compact('items', 'types', 'keyword'));
+        return view('item.index', compact('items', 'types', 'keyword', 'typeId'));
     }
 
     /**
@@ -66,11 +69,11 @@ class ItemController extends Controller
         if ($request->isMethod('post')) {
             // バリデーション
             $this->validate($request, [
-                'name' => 'required|max:255',
-                'code' => 'required|max:255',
-                'type_id' => 'required|max:255',
-                'detail' => 'required|max:255',
-                'quantity' => 'required|max:255',
+                'name' => 'required|string|max:20',
+                'code' => 'required|integer|min:0|max:10000000000',
+                'type_id' => 'required|integer|max:225',
+                'detail' => 'required|string|max:200',
+                'quantity' => 'required|integer|min:0|max:10000',
             ]);
 
             // 商品登録
@@ -96,7 +99,7 @@ class ItemController extends Controller
     public function item(Request $request)
     {
         $items = Item::where('id', '=', $request->id)->first();
-        
+
         $types = Type::all();
         // 変数を渡す
         return view('item.edit', ['items' => $items, 'types' => $types]);
@@ -106,11 +109,11 @@ class ItemController extends Controller
     public function itemEdit(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'code' => 'required|max:255',
-            'type_id' => 'required|max:255',
-            'detail' => 'required|max:255',
-            'quantity' => 'required|max:255',
+            'name' => 'required|string|max:20',
+            'code' => 'required|integer|min:0|max:10000000000',
+            'type_id' => 'required|integer|max:225',
+            'detail' => 'required|string|max:200',
+            'quantity' => 'required|integer|min:0|max:10000',
         ]);
 
         $item = Item::find($id);
@@ -121,7 +124,7 @@ class ItemController extends Controller
         $item->quantity = $request->quantity;
         $item->save();
 
-        return redirect('/items');
+        return redirect('/item');
     }
 
     // 削除ボタンを押したとき
@@ -131,4 +134,38 @@ class ItemController extends Controller
         $item->delete();
         return redirect('/items');
     }
+
+    // 仕入れ処理
+    public function purchase(Request $request)
+    {
+        // 検索フォームで入力された値を取得
+        $code = $request->input('code');  //商品コード
+        $query = Item::select([
+            "id",
+            "name",
+            "code",
+            "quantity",
+        ]);
+        if (!empty($code)) {
+            $query->Where('code', $code);
+        }
+        $items = $query->get();
+        return view('/item/purchase', compact('items', 'code'));
+    }
+    public function addPurchase(Request $request)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        $item = Item::where('id','=',$request->id)->first();
+
+        $add = $request->quantity;
+        // dd($add);
+        $quantity = $item->quantity + $add;
+        $item->update(['quantity' => $quantity]);
+        $item->save();
+        return redirect('/items/purchase')->with('flashmessage','仕入れ処理が完了しました。');
+    }
+    
 }
