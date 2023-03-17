@@ -124,7 +124,7 @@ class ItemController extends Controller
         $item->quantity = $request->quantity;
         $item->save();
 
-        return redirect('/items');
+        return redirect('/item');
     }
 
     // 削除ボタンを押したとき
@@ -165,7 +165,7 @@ class ItemController extends Controller
         $quantity = $item->quantity + $add;
         $item->update(['quantity' => $quantity]);
         $item->save();
-        return redirect('/items/purchase');
+        return redirect('/items/purchase')->with('flashmessage','仕入れ処理が完了しました。');
     }
     
 }

@@ -2,9 +2,32 @@
 
 @section('title', '商品入庫')
 
+@if(Session::has('flashmessage'))
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script>
+    $(window).load(function() {
+        $('#modal_box').modal('show');
+    });
+</script>
+
+<!-- モーダルウィンドウの中身 -->
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                {{ session('flashmessage') }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 @section('content_header')
 <h1>入庫処理</h1>
 @stop
+
 
 @section('content')
 <div class="row">
@@ -16,8 +39,8 @@
                     <div class="input-group">
                         <!-- 検索フォーム -->
                         <form action="{{ route('purchase') }}" method="GET">
-                        <!-- <div class="input-group mb-3">     -->
-                        <div class="form-group">
+                            <!-- <div class="input-group mb-3">     -->
+                            <div class="form-group">
                                 <input type="text" class="form-control" name="code">
                                 <button type="submit" class="btn btn-default mt-2">検索</button>
                                 <button class="btn btn-default mt-2" href="/items/purchase/">クリア</button>
@@ -58,13 +81,12 @@
                     <button type="submit" class="btn btn-primary">仕入登録</button>
                 </div>
             </form>
-                        @endforeach
+            @endforeach
             @endif
         </div>
     </div>
 </div>
 @stop
-
 @section('css')
 @stop
 
