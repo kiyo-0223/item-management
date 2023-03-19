@@ -28,6 +28,7 @@ class ItemController extends Controller
         // 検索フォームで入力された値を取得
         $keyword = $request->input('keyword');
         $typeId = $request->input('typesId');  //種別の値
+
         // dd($typeId);
         $query = Item::leftJoin("types", "items.type_id", "types.id")
             ->select([
@@ -86,7 +87,7 @@ class ItemController extends Controller
                 'quantity' => $request->quantity,
             ]);
 
-            return redirect('/items');
+            return redirect('/items')->with('flashmessage', '登録が完了しました。');
         }
         $types = Type::all();
 
@@ -124,7 +125,7 @@ class ItemController extends Controller
         $item->quantity = $request->quantity;
         $item->save();
 
-        return redirect('/items');
+        return redirect('/items')->with('flashmessage', '編集が完了しました。');
     }
 
     // 削除ボタンを押したとき
@@ -155,17 +156,16 @@ class ItemController extends Controller
     public function addPurchase(Request $request)
     {
         $request->validate([
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|min:1|max:10000'
         ]);
 
-        $item = Item::where('id','=',$request->id)->first();
+        $item = Item::where('id', '=', $request->id)->first();
 
         $add = $request->quantity;
         // dd($add);
         $quantity = $item->quantity + $add;
         $item->update(['quantity' => $quantity]);
         $item->save();
-        return redirect('/items/purchase')->with('flashmessage','仕入れ処理が完了しました。');
+        return redirect('/items/purchase')->with('flashmessage', '仕入れ処理が完了しました。');
     }
-    
 }
