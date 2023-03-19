@@ -37,7 +37,7 @@ class TypeController extends Controller
         Type::create([
             'name' => $request->name,
         ]);
-        return redirect('/types/type');
+        return redirect('/types/type')->with('flashmessage', '登録が完了しました。');
     }
 
     // 種別編集ページにとぶ
@@ -61,7 +61,7 @@ class TypeController extends Controller
         $type->name = $request->name;
         $type->save();
 
-        return redirect('/types/type');
+        return redirect('/types/type')->with('flashmessage', '編集が完了しました。');
     }
 
     // 削除ボタンを押したとき
@@ -91,7 +91,7 @@ class TypeController extends Controller
                 // dd($request);
                 $user->role = $request->role;
                 $user->save();
-            return redirect('/types/role');
+            return redirect('/types/role')->with('flashmessage', '編集が完了しました。');
         }
 
 }

@@ -2,36 +2,22 @@
 
 @section('title', '商品入庫')
 
-@if(Session::has('flashmessage'))
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-<script>
-    $(window).load(function() {
-        $('#modal_box').modal('show');
-    });
-</script>
-
-<!-- モーダルウィンドウの中身 -->
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                {{ session('flashmessage') }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
 @section('content_header')
 <h1>入庫処理</h1>
 @stop
 
-
 @section('content')
 <div class="row">
     <div class="col-md-10">
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <div class="card">
             <div class="card-header">
                 <div class="card-tools float-left">
@@ -43,7 +29,9 @@
                             <div class="form-group">
                                 <input type="text" class="form-control" name="code">
                                 <button type="submit" class="btn btn-default mt-2">検索</button>
-                                <button class="btn btn-default mt-2" href="/items/purchase/">クリア</button>
+                                <button class="btn btn-default mt-2">
+                                    <a href="{{ route('purchase') }}" class="text-gray">クリア</a>
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -86,6 +74,27 @@
         </div>
     </div>
 </div>
+@if(Session::has('flashmessage'))
+<!-- モーダルウィンドウの中身 -->
+<div class="modal fade" id="modal_box" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                {{ session('flashmessage') }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script>
+    $(window).load(function() {
+        $('#modal_box').modal('show');
+    });
+</script>
+@endif
 @stop
 @section('css')
 @stop
