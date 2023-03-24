@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">種別登録</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="種別名">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="種別名" value="{{ old('code') }}>
                     </div>
                 </div>
                 <div class="card-footer">

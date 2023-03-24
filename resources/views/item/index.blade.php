@@ -71,6 +71,7 @@
                     </table>
                 </div>
             </div>
+            <div class="d-block mx-auto">{{ $items->appends(request()->query())->links('pagination::bootstrap-4') }}</div>
         </div>
     </div>
     @if(Session::has('flashmessage'))

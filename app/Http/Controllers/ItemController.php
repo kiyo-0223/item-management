@@ -55,7 +55,7 @@ class ItemController extends Controller
 
         $items = $query
             ->orderBy("items.created_at", "DESC")
-            ->get();
+            ->paginate(20);
         $types = Type::all();
 
         return view('item.index', compact('items', 'types', 'keyword', 'typeId'));

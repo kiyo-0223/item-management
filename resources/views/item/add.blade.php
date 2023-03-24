@@ -24,18 +24,18 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="name">名前</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="名前">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="名前" value="{{ old('name') }}">
                     </div>
 
                     <div class="form-group">
                         <label for="code">商品コード</label>
-                        <input type="text" class="form-control" id="code" name="code" placeholder="JANコード">
+                        <input type="text" class="form-control" id="code" name="code" placeholder="JANコード" value="{{ old('code') }}">
                     </div>
 
                     <div class="form-group">
                         <label for="type_id">種別</label>
                         <select class="form-control" id="type_id" name="type_id">
-                            <option value="">選択してください</option>
+                            <option value="{{ old('type_id') }}">選択してください</option>
                             @foreach ($types as $type)
                             <option value="{{ $type->id }}">{{ $type->name }}</option>
                             @endforeach
@@ -44,12 +44,12 @@
 
                     <div class="form-group">
                         <label for="detail">詳細</label>
-                        <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
+                        <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明" value="{{ old('detail') }}">
                     </div>
 
                     <div class="form-group">
                         <label for="quantity">在庫数</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity">
+                        <input type="number" class="form-control" id="quantity" name="quantity" value="{{ old('quantity') }}">
                     </div>
                 </div>
 
