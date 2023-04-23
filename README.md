@@ -1,35 +1,10 @@
 ## 商品管理システム
 
-### 環境構築手順
-
-* Gitクローン
-* .env.example をコピーして .env を作成
-* MySQLかPostgreSQLのデータベース作成（名前：item_management）  
-  ローカルでMAMPを使用しているのであれば、MySQL推奨
-* .env にデータベース接続情報追加
-```
-例）
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=item_management
-DB_USERNAME=root
-DB_PASSWORD=root
-```
-* APP_KEY生成
-```
-$ php artisan key:generate
-```
-* Composerインストール
-```
-$ composer install
-```
-* フロント環境構築
-```
-$ npm install
-$ npm run dev
-```
-* マイグレーション
-```
-$ php artisan migrate
-```
+### 概要
+商品管理システムは、自社の取り扱い商品を一覧にて表示し、管理できるサービスです。
+アカウントを登録しなければ見れないようにし、商品一覧画面では商品をキーワード検索、絞り込み検索できます。
+管理者のみ権限を付与しており、商品登録・管理メニューが表示されます。
+商品の登録・削除、種別登録・削除、権限変更を行うことが出来ます。
+種別削除では、商品一覧で使用中の種別は削除できないように、削除ボタンを非表示にしていますので、誤った種別の削除を防ぐことが
+出来ます。仕入れ処理に関しては、まだまだ使いやすいように改良が必要です。
+使用者が使いやすい環境の構築を行なっております。
